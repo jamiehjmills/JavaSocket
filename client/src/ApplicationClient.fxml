@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApplicationClientController">
+   <children>
+      <Label alignment="CENTER" layoutX="144.0" layoutY="109.0" prefHeight="46.0" prefWidth="39.0" text="+" textAlignment="RIGHT">
+         <font>
+            <Font size="21.0" />
+         </font></Label>
+      <TextField layoutX="183.0" layoutY="109.0" prefHeight="46.0" prefWidth="46.0" />
+      <TextField layoutX="98.0" layoutY="109.0" prefHeight="46.0" prefWidth="46.0" />
+      <Label alignment="CENTER" layoutX="275.0" layoutY="109.0" prefHeight="46.0" prefWidth="39.0" textAlignment="RIGHT">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="236.0" layoutY="109.0" prefHeight="46.0" prefWidth="39.0" text="=" textAlignment="RIGHT">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <TextField layoutX="81.0" layoutY="177.0" prefHeight="46.0" prefWidth="239.0" />
+      <Button layoutX="57.0" layoutY="246.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="287.0" text="Press to see the sum of the two numbers" />
+   </children>
+</AnchorPane>
