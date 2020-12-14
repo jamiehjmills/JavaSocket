@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ApplicationClientController {
 
     private String localHost = "localhost";
-    private int port;
+    private int port = 8009;
 
     // declare low level and high level objects for input
     private InputStream inStream;
@@ -35,7 +35,7 @@ public class ApplicationClientController {
 
     public void initialize() throws IOException {
 
-        getPortNumber();
+        //getPortNumber();
         connectingToServer();
 
     }
@@ -80,18 +80,18 @@ public class ApplicationClientController {
 
     }
 
-    public void getPortNumber(){
-
-        Optional<String> response;
-
-        // use the TextInputDialog class to allow the user to enter port number
-        TextInputDialog portDialog = new TextInputDialog();
-        portDialog.setHeaderText("Enter port number");
-        portDialog.setTitle("Addition Client");
-
-        response = portDialog.showAndWait();
-        port = Integer.valueOf(response.get());
-
-    }
+//    public void getPortNumber(){
+//
+//        Optional<String> response;
+//
+//        // use the TextInputDialog class to allow the user to enter port number
+//        TextInputDialog portDialog = new TextInputDialog();
+//        portDialog.setHeaderText("Enter port number");
+//        portDialog.setTitle("Addition Client");
+//
+//        response = portDialog.showAndWait();
+//        port = Integer.valueOf(response.get());
+//
+//    }
 
 }
