@@ -39,19 +39,24 @@ public class ApplicationClientController {
         connectingToServer();
         name.setText(clientName);
 
+        display.setEditable(false);
+        //todo: Finding what display.setWrapText(true) can do.
     }
 
     @FXML
     public void clickToSendTexts(ActionEvent event){
 
+        String clientTexts = clientName+ " " + chat.getText() + "\n"; //todo: \n is not working why?
+        display.appendText(clientTexts);
+        chat.setText(""); // display the texts typed in to the chat
+
+
         try
         {
-            //send the text to the server
-            //outDataStream.writeUTF(firstNumber.getText()));
+            outDataStream.writeUTF(clientTexts); // transmit the text
 
-            // read and display the result sent back from the server
-            int result = inDataStream.readInt();
-            //sum.setText(""+result);
+            String responseFromServer = inDataStream.readUTF();
+            System.out.println(responseFromServer);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,7 +70,7 @@ public class ApplicationClientController {
 
             //attempt to create a connection to the server
             connection = new Socket(localHost, port);
-            display.setText("Connection Established");
+            //display.setText("Connection Established");
 
             // create an input stream from the server
             inStream = connection.getInputStream();

@@ -20,7 +20,6 @@ public class Server {
 
         // declare other variables
         String client;
-        int first, second, sum;
         boolean connected;
 
         // create a server socket
@@ -46,18 +45,11 @@ public class Server {
 
         while (connected) {
             // read an integer from the client
-            first = inDataStream.readInt();
-            System.out.println("First Number received " + first);
+            String clientText = inDataStream.readUTF();
+            System.out.println("Chat received " + clientText);
 
-            // read an integer from the client
-            second = inDataStream.readInt();
-            System.out.println("Second number received: " + second);
-
-            sum = first + second;
-            System.out.println("Sum returned: " + sum);
-
-            //send the sum to the client
-            outDataStream.writeInt(sum);
+            //send the reply to the client
+            outDataStream.writeUTF("Received");
         }
     }
 }

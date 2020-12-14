@@ -7,8 +7,7 @@
    <children>
       <TextField fx:id="display" layoutX="15.0" layoutY="35.0" prefHeight="289.0" prefWidth="374.0" />
       <TextField fx:id="chat" layoutX="14.0" layoutY="339.0" prefHeight="46.0" prefWidth="320.0" />
-      <ScrollBar layoutX="371.0" layoutY="35.0" orientation="VERTICAL" prefHeight="290.0" prefWidth="18.0" />
       <Label fx:id="name" layoutX="15.0" layoutY="10.0" prefHeight="18.0" prefWidth="62.0" text="Label" />
-      <Button fx:id="enter" layoutX="341.0" layoutY="339.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="47.0" text="Enter" />
+      <Button fx:id="enter" layoutX="341.0" layoutY="339.0" mnemonicParsing="false" onAction="#clickToSendTexts" prefHeight="46.0" prefWidth="47.0" text="Enter" />
    </children>
 </AnchorPane>
