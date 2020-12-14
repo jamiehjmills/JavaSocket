@@ -7,13 +7,13 @@ import javafx.scene.control.TextInputDialog;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Optional;
 
 public class ApplicationClientController {
 
     private String localHost = "localhost";
     private int port = 8009;
+    private String clientName;
 
     // declare low level and high level objects for input
     private InputStream inStream;
@@ -27,31 +27,31 @@ public class ApplicationClientController {
     private Socket connection;
 
     @FXML
-    Label sum;
+    TextField display, chat;
     @FXML
-    TextField firstNumber, secondNumber, msg;
+    Label name;
     @FXML
-    Button calculateButton;
+    Button enter;
 
     public void initialize() throws IOException {
 
-        //getPortNumber();
+        getName();
         connectingToServer();
+        name.setText(clientName);
 
     }
 
     @FXML
-    public void clickToCalculateNumbers(ActionEvent event){
+    public void clickToSendTexts(ActionEvent event){
 
         try
         {
-            // send the two integers to the server
-            outDataStream.writeInt(Integer.parseInt(firstNumber.getText()));
-            outDataStream.writeInt(Integer.parseInt(secondNumber.getText()));
+            //send the text to the server
+            //outDataStream.writeUTF(firstNumber.getText()));
 
             // read and display the result sent back from the server
             int result = inDataStream.readInt();
-            sum.setText(""+result);
+            //sum.setText(""+result);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class ApplicationClientController {
 
             //attempt to create a connection to the server
             connection = new Socket(localHost, port);
-            msg.setText("Connection Established");
+            display.setText("Connection Established");
 
             // create an input stream from the server
             inStream = connection.getInputStream();
@@ -80,18 +80,18 @@ public class ApplicationClientController {
 
     }
 
-//    public void getPortNumber(){
-//
-//        Optional<String> response;
-//
-//        // use the TextInputDialog class to allow the user to enter port number
-//        TextInputDialog portDialog = new TextInputDialog();
-//        portDialog.setHeaderText("Enter port number");
-//        portDialog.setTitle("Addition Client");
-//
-//        response = portDialog.showAndWait();
-//        port = Integer.valueOf(response.get());
-//
-//    }
+    public void getName(){
+
+        Optional<String> response;
+
+        // use the TextInputDialog class to allow the user to enter text
+        TextInputDialog portDialog = new TextInputDialog();
+        portDialog.setHeaderText("Enter your name");
+        portDialog.setTitle("Client Details");
+
+        response = portDialog.showAndWait();
+        clientName = response.get();
+
+    }
 
 }

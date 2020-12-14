@@ -2,27 +2,12 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ApplicationClientController">
    <children>
-      <Label alignment="CENTER" layoutX="144.0" layoutY="109.0" prefHeight="46.0" prefWidth="39.0" text="+" textAlignment="RIGHT">
-         <font>
-            <Font size="21.0" />
-         </font></Label>
-      <TextField fx:id="secondNumber" layoutX="183.0" layoutY="109.0" prefHeight="46.0" prefWidth="46.0" />
-      <TextField fx:id="firstNumber" layoutX="98.0" layoutY="109.0" prefHeight="46.0" prefWidth="46.0" />
-      <Label fx:id="sum" alignment="CENTER" layoutX="275.0" layoutY="109.0" prefHeight="46.0" prefWidth="39.0" textAlignment="RIGHT">
-         <font>
-            <Font size="21.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="236.0" layoutY="109.0" prefHeight="46.0" prefWidth="39.0" text="=" textAlignment="RIGHT">
-         <font>
-            <Font size="21.0" />
-         </font>
-      </Label>
-      <TextField fx:id="msg" layoutX="81.0" layoutY="177.0" prefHeight="46.0" prefWidth="239.0" />
-      <Button fx:id="calculateButton" layoutX="57.0" layoutY="246.0" mnemonicParsing="false" onAction="#clickToCalculateNumbers" prefHeight="36.0" prefWidth="287.0" text="Press to see the sum of the two numbers" />
+      <TextField fx:id="display" layoutX="15.0" layoutY="35.0" prefHeight="289.0" prefWidth="374.0" />
+      <TextField fx:id="chat" layoutX="14.0" layoutY="339.0" prefHeight="46.0" prefWidth="320.0" />
+      <Label fx:id="name" layoutX="15.0" layoutY="10.0" prefHeight="18.0" prefWidth="62.0" text="Label" />
+      <Button fx:id="enter" layoutX="341.0" layoutY="339.0" mnemonicParsing="false" onAction="#clickToSendTexts" prefHeight="46.0" prefWidth="47.0" text="Enter" />
    </children>
 </AnchorPane>
