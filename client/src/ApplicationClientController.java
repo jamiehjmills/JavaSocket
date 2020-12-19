@@ -1,9 +1,6 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -27,7 +24,9 @@ public class ApplicationClientController {
     private Socket connection;
 
     @FXML
-    TextField display, chat;
+    TextField chat;
+    @FXML
+    TextArea display;
     @FXML
     Label name;
     @FXML
@@ -40,28 +39,24 @@ public class ApplicationClientController {
         name.setText(clientName);
 
         display.setEditable(false);
-        //todo: Finding what display.setWrapText(true) can do.
+        display.setWrapText(true);
+        //todo: Finding what display.setWrapText(true) can do. <- Done only for
     }
 
     @FXML
     public void clickToSendTexts(ActionEvent event){
 
-        String clientTexts = clientName+ " " + chat.getText() + "\n"; //todo: \n is not working why?
+        String clientTexts = clientName+ " " + chat.getText() + "\n"; //todo: \n is not working why? <- done by using setWrapText
         display.appendText(clientTexts);
         chat.setText(""); // display the texts typed in to the chat
-
 
         try
         {
             outDataStream.writeUTF(clientTexts); // transmit the text
 
-            String responseFromServer = inDataStream.readUTF();
-            System.out.println(responseFromServer);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
     }
 
@@ -70,18 +65,16 @@ public class ApplicationClientController {
 
             //attempt to create a connection to the server
             connection = new Socket(localHost, port);
-            //display.setText("Connection Established");
 
-            // create an input stream from the server
-            inStream = connection.getInputStream();
-            inDataStream = new DataInputStream(inStream);
-
-            // create an output stream to the server
             outStream = connection.getOutputStream();
             outDataStream = new DataOutputStream(outStream);
 
-            //send the host IP to the server
-            outDataStream.writeUTF(connection.getLocalAddress().getHostAddress());
+             AdditionalServerThread additionalServerThread = new AdditionalServerThread(connection, new TextArea());
+
+        Thread thread = new Thread(additionalServerThread);
+        thread.start();
+
+
 
     }
 

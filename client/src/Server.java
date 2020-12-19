@@ -1,57 +1,64 @@
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+import static javafx.application.Application.launch;
+
+public class Server extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+        loadingFXML(primaryStage);
+
+    }
+
+    public void loadingFXML(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("ApplicationClient.fxml"));
+        primaryStage.setTitle("Application Client");
+        primaryStage.setScene(new Scene(root, 400,400 ));
+        primaryStage.show();
+    }
+
+
     public static void main(String[] args) throws IOException {
+        launch(args);
+
         final int port = 8009;
 
-        // declare a general socket and a server socket
-        Socket socket;
-        ServerSocket serverSocket;
-
-        // declare low level and high level objects for input
-        InputStream inStream;
-        DataInputStream inDataStream;
-
-        // declare low level and high level objects for output
-        OutputStream outStream;
-        DataOutputStream outDataStream;
-
-        // declare other variables
         String client;
-        boolean connected;
+        Socket socket;
+        AdditionalServerThread additionalServerThread;
+        TextArea textArea;
+        OutputStream outputStream;
+        DataOutputStream dataOutputStream;
 
-        // create a server socket
-        serverSocket = new ServerSocket(port);
-        System.out.println("Listening on port " + port);
 
-        // listen for a connection from the client
-        socket = serverSocket.accept();
-        connected = true;
-        System.out.println("connection with client has been established");
+        ServerSocket serverSocket = new ServerSocket(8009);
 
-        // create an input stream from the client
-        inStream = socket.getInputStream(); // Returns an input stream for this socket.
-        inDataStream = new DataInputStream(inStream);
+        while (true) {
+            socket = serverSocket.accept();
 
-        // create an output stream to the client
-        outStream = socket.getOutputStream();
-        outDataStream = new DataOutputStream(outStream);
+            //create an output stream to the socket
+            outputStream = socket.getOutputStream();
+            dataOutputStream = new DataOutputStream(outputStream);
 
-        // wait for a string from the client
-        client = inDataStream.readUTF();
-        System.out.println("Address of client: " + client);
+            additionalServerThread = new AdditionalServerThread(socket, new TextArea());
 
-        while (connected) {
-            // read an integer from the client
-            String clientText = inDataStream.readUTF();
-            System.out.println("Chat received " + clientText);
-
-            //send the reply to the client
-            outDataStream.writeUTF("Received");
+            Thread thread = new Thread(additionalServerThread);
+            thread.start();
         }
+
     }
-}
+
+    }
+
 
 
