@@ -11,25 +11,25 @@ import java.net.Socket;
 
 import static javafx.application.Application.launch;
 
-public class Server extends Application {
+public class Server {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+//    @Override
+//    public void start(Stage primaryStage) throws Exception {
+//
+//        loadingFXML(primaryStage);
+//
+//    }
 
-        loadingFXML(primaryStage);
-
-    }
-
-    public void loadingFXML(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("ApplicationClient.fxml"));
-        primaryStage.setTitle("Application Client");
-        primaryStage.setScene(new Scene(root, 400,400 ));
-        primaryStage.show();
-    }
+//    public void loadingFXML(Stage primaryStage) throws Exception {
+//        Parent root = FXMLLoader.load(getClass().getResource("ApplicationClient.fxml"));
+//        primaryStage.setTitle("Application Client");
+//        primaryStage.setScene(new Scene(root, 400, 400));
+//        primaryStage.show();
+//    }
 
 
     public static void main(String[] args) throws IOException {
-        launch(args);
+        //launch(args);
 
         final int port = 8009;
 
@@ -58,7 +58,8 @@ public class Server extends Application {
 
     }
 
-    }
+}
+
 
 
 

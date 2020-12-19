@@ -10,11 +10,10 @@ import javafx.stage.Stage;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Optional;
 
-public class ChatServer extends Application {
+public class ClientChat extends Application {
 
     // declare and initialise the text display area
     private TextArea textWindow = new TextArea();
@@ -26,13 +25,14 @@ public class ChatServer extends Application {
     private ListenerTask listenerTask;
 
     private final int port = 8009;
+
+    private String remoteMachine; // to hold the name chosen by the user
     private String name;
 
     @Override
-    public void start(Stage stage){
-
-        getInfo();
-        startServerThread();
+    public void start(Stage stage) throws Exception {
+        getInfo(); // call method that gets usesr name and server details
+        startClientThread(); // start the client thread
 
         inputWindow.setOnKeyReleased(e ->
         {
@@ -63,37 +63,29 @@ public class ChatServer extends Application {
         stage.setScene(scene);
         stage.setTitle(name);
         stage.show();
-
     }
 
-    private void startServerThread(){
+    private void startClientThread() throws IOException {
         Socket connection;
-        ServerSocket serverSocket;
 
-        try{
-            serverSocket = new ServerSocket(port);
-            connection = serverSocket.accept();
+        connection = new Socket("localhost", port);
 
-            //create an output stream to the connection(socket)
-            outStream = connection.getOutputStream();
-            outDataStream = new DataOutputStream(outStream);
+        //create an output stream to the connection(socket)
+        outStream = connection.getOutputStream();
+        outDataStream = new DataOutputStream(outStream);
 
-            // create a thread to listen for messages
-            listenerTask = new ListenerTask(textWindow, connection);
+        // create a thread to listen for messages
+        listenerTask = new ListenerTask(textWindow, connection);
 
-            Thread thread = new Thread(listenerTask);
-            thread.start();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Thread thread = new Thread(listenerTask);
+        thread.start();
     }
 
     private void getInfo(){
 
         Optional<String> response;
 
-         // get user name
+        // get user name
         TextInputDialog textDialog = new TextInputDialog();
         textDialog.setHeaderText("Enter user name");
         textDialog.setTitle("Chat Server");
@@ -111,5 +103,4 @@ public class ChatServer extends Application {
     {
         launch(args);
     }
-
 }

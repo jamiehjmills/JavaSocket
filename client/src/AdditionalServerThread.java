@@ -1,9 +1,10 @@
+import javafx.concurrent.Task;
 import javafx.scene.control.TextArea;
 
 import java.io.*;
 import java.net.Socket;
 
-public class AdditionalServerThread extends Thread {
+public class AdditionalServerThread extends Task{
 
     private final Socket socket;
     private boolean connected = true;
@@ -30,8 +31,7 @@ public class AdditionalServerThread extends Thread {
     }
 
     @Override
-    public void start() {
-
+    protected Void call(){
         try {
             System.out.println("Connection established");
 
@@ -48,6 +48,8 @@ public class AdditionalServerThread extends Thread {
             connected = false;
         }
 
-
+        return null;
     }
 }
+
+
